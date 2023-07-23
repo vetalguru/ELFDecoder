@@ -1,12 +1,16 @@
 # ELFDecoder
 Executable and Linkable Format decoder
 
-How to build:
+## How to build:
+```
 $ g++ main.cpp
+```
 
-Project structure:
-Root
+## Project structure:
+```
+ELFDecoder
 ├── bin
-|   └── simple.bin - simple elf file
+│   └── simple.bin - simple elf file
 ├── README.md      - project description
 └── main.cpp       - main project source file
+```
