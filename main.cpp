@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <elf.h>
 
 bool ReadData(const std::string& aPath, std::vector<unsigned char>& aData)
 {
@@ -45,12 +46,60 @@ void PrintHEX(const std::vector<unsigned char>& aData)
     std::cerr << "\n";
 }
 
+bool PrintElfHeader(const std::vector<unsigned char>& aData)
+{
+    if (aData.size() < EI_NIDENT)
+    {
+        return false;
+    }
+
+    // Print platform
+    switch(aData[4])
+    {
+    case ELFCLASS32: {
+        std::cout << "Platform : x32" << std::endl;
+        break;
+    }
+    case ELFCLASS64: {
+        std::cout << "Platform : x64" << std::endl;
+        break;
+    }
+    default: {
+        std::cout << "Platform : Unknown" << std::endl;
+        break;
+        }
+    }
+
+    // Print data encoding
+    switch(aData[5])
+    {
+    case ELFDATA2LSB: {
+        std::cout << "Data encoding: little endian" << std::endl;
+        break;
+        }
+    case ELFDATA2MSB: {
+        std::cout << "Data encoding: big endian" << std::endl;
+        break;
+        }
+    default: {
+        std::cout << "Data encoding: Unknown" << std::endl;
+        break;
+        }
+    }
+
+    // Print version
+    std::cout << "ELF Version: " << (int)aData[6] << std::endl;
+
+    return true;
+}
+
 int main ()
 {
     std::vector<unsigned char> data;
     if (ReadData(std::string{"samples/simple.bin"}, data))
     {
-        PrintHEX(data);
+        //PrintHEX(data);
+        PrintElfHeader(data);
     }
 
     return 0;
