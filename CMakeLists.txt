@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(ELFDECODER_LIBRARY_DIR ${CMAKE_SOURCE_DIR}/lib)
+set(TESTS_DIR ${PROJECT_SOURCE_DIR}/tests)
 
 set(SOURCES_LIST ${CMAKE_SOURCE_DIR}/main.cpp)
 
@@ -17,6 +18,7 @@ add_executable(
 )
 
 add_subdirectory(${ELFDECODER_LIBRARY_DIR})
+add_subdirectory(${TESTS_DIR})
 
 target_link_libraries(${PROJECT_NAME} elfdecoder)
 
