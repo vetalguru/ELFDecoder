@@ -5,7 +5,20 @@ project(ELFDecoder VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(${PROJECT_NAME} main.cpp)
+set(ELFDECODER_LIBRARY_DIR ${CMAKE_SOURCE_DIR}/lib)
+
+set(SOURCES_LIST ${CMAKE_SOURCE_DIR}/main.cpp)
+
+include_directories(${ELFDECODER_LIBRARY_DIR}/inc)
+
+add_executable(
+    ${PROJECT_NAME}
+    ${SOURCES_LIST}
+)
+
+add_subdirectory(${ELFDECODER_LIBRARY_DIR})
+
+target_link_libraries(${PROJECT_NAME} elfdecoder)
 
 message("Copy samples to build directory...")
 add_custom_command(
