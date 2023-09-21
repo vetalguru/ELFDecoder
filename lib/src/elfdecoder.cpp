@@ -10,6 +10,12 @@ ElfDecoder::ElfDecoder()
 {
 }
 
+ElfDecoder::ElfDecoder(const std::string &aPath)
+  : m_isParsed(false)
+{
+    open(aPath);
+}
+
 ElfDecoder::~ElfDecoder()
 {
 }
@@ -21,6 +27,11 @@ bool ElfDecoder::isParsed() const
 
 bool ElfDecoder::open(const std::string& aPath)
 {
+  if (m_isParsed)
+  {
+    resetInternalStructures();
+  }
+
   m_isParsed = readFile(aPath);
   return m_isParsed;
 }
@@ -28,6 +39,11 @@ bool ElfDecoder::open(const std::string& aPath)
 bool ElfDecoder::readFile(const std::string& aFile)
 {
   return ::IsExists(aFile);
+}
+
+void ElfDecoder::resetInternalStructures()
+{
+  m_isParsed = false;
 }
 
 } // namespace elf
