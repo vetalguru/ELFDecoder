@@ -13,14 +13,11 @@ FetchContent_MakeAvailable(googletest)
 add_library(GTest::GTest INTERFACE IMPORTED)
 target_link_libraries(GTest::GTest INTERFACE gtest_main)
 
-add_executable(simple_unittest simple_unittest.cpp)
+add_executable(test_elfdecoder test_elfdecoder.cpp)
+add_executable(test_utilities test_utilities.cpp)
 
-target_link_libraries(simple_unittest
-    GTest::GTest
-)
+target_link_libraries(test_elfdecoder GTest::GTest elfdecoder)
+target_link_libraries(test_utilities GTest::GTest elfdecoder)
 
-add_test(
-    NAME simple_unittest
-    COMMAND simple_unittest
-)
-
+add_test(NAME test_elfdecoder COMMAND test_elfdecoder)
+add_test(NAME test_utilities COMMAND test_utilities)
